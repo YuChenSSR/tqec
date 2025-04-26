@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,20 +26,23 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
@@ -349,9 +352,14 @@ window.addEventListener("load", () => mermaid.run());
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -408,29 +416,29 @@ window.addEventListener("load", () => mermaid.run());
 <span class="sd">represented by instances of :class:`~.schedule.schedule.Schedule`).</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">bisect</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span><span class="p">,</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bisect</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">copy</span><span class="p">,</span> <span class="n">deepcopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Sequence</span>
 
-<span class="kn">import</span> <span class="nn">stim</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">stim</span>
 
-<span class="kn">from</span> <span class="nn">tqec.circuit.instructions</span> <span class="kn">import</span> <span class="n">is_annotation_instruction</span>
-<span class="kn">from</span> <span class="nn">tqec.circuit.moment</span> <span class="kn">import</span> <span class="n">Moment</span><span class="p">,</span> <span class="n">iter_stim_circuit_without_repeat_by_moments</span>
-<span class="kn">from</span> <span class="nn">tqec.circuit.qubit</span> <span class="kn">import</span> <span class="n">GridQubit</span>
-<span class="kn">from</span> <span class="nn">tqec.circuit.qubit_map</span> <span class="kn">import</span> <span class="n">QubitMap</span><span class="p">,</span> <span class="n">get_qubit_map</span>
-<span class="kn">from</span> <span class="nn">tqec.circuit.schedule.exception</span> <span class="kn">import</span> <span class="n">ScheduleException</span>
-<span class="kn">from</span> <span class="nn">tqec.circuit.schedule.schedule</span> <span class="kn">import</span> <span class="n">Schedule</span>
-<span class="kn">from</span> <span class="nn">tqec.exceptions</span> <span class="kn">import</span> <span class="n">TQECException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.moment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Moment</span><span class="p">,</span> <span class="n">iter_stim_circuit_without_repeat_by_moments</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.qubit</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridQubit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.qubit_map</span><span class="w"> </span><span class="kn">import</span> <span class="n">QubitMap</span><span class="p">,</span> <span class="n">get_qubit_map</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.schedule.exception</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScheduleException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.schedule.schedule</span><span class="w"> </span><span class="kn">import</span> <span class="n">Schedule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.utils.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TQECException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.utils.instructions</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_annotation_instruction</span>
 
 
 <div class="viewcode-block" id="ScheduledCircuit">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit">[docs]</a>
-<span class="k">class</span> <span class="nc">ScheduledCircuit</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ScheduledCircuit</span><span class="p">:</span>
 <div class="viewcode-block" id="ScheduledCircuit.__init__">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">moments</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Moment</span><span class="p">],</span>
         <span class="n">schedule</span><span class="p">:</span> <span class="n">Schedule</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span>
@@ -488,15 +496,16 @@ window.addEventListener("load", () => mermaid.run());
                 <span class="s2">&quot;moment with a QUBIT_COORDS instruction.&quot;</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Moment</span><span class="p">]</span> <span class="o">=</span> <span class="n">moments</span>
+        <span class="n">non_empty_moments_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">moments</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">is_empty</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Moment</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">moments</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">non_empty_moments_indices</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qubit_map</span><span class="p">:</span> <span class="n">QubitMap</span> <span class="o">=</span> <span class="n">qubit_map</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span><span class="p">:</span> <span class="n">Schedule</span> <span class="o">=</span> <span class="n">schedule</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span> <span class="o">=</span> <span class="n">Schedule</span><span class="p">([</span><span class="n">schedule</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">non_empty_moments_indices</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="ScheduledCircuit.empty">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.empty">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">empty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ScheduledCircuit</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">empty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ScheduledCircuit</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns an empty :class:`ScheduledCircuit` instance.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">ScheduledCircuit</span><span class="p">([],</span> <span class="n">Schedule</span><span class="p">(),</span> <span class="n">QubitMap</span><span class="p">(),</span> <span class="n">_avoid_checks</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
@@ -504,7 +513,7 @@ window.addEventListener("load", () => mermaid.run());
 <div class="viewcode-block" id="ScheduledCircuit.from_circuit">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.from_circuit">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">from_circuit</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_circuit</span><span class="p">(</span>
         <span class="n">circuit</span><span class="p">:</span> <span class="n">stim</span><span class="o">.</span><span class="n">Circuit</span><span class="p">,</span>
         <span class="n">schedule</span><span class="p">:</span> <span class="n">Schedule</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">qubit_map</span><span class="p">:</span> <span class="n">QubitMap</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -570,20 +579,20 @@ window.addEventListener("load", () => mermaid.run());
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schedule</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schedule</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Schedule of the internal moments.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span>
 
 <div class="viewcode-block" id="ScheduledCircuit.get_qubit_coords_definition_preamble">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.get_qubit_coords_definition_preamble">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_qubit_coords_definition_preamble</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">stim</span><span class="o">.</span><span class="n">Circuit</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_qubit_coords_definition_preamble</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">stim</span><span class="o">.</span><span class="n">Circuit</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a circuit with only ``QUBIT_COORDS`` instructions.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qubit_map</span><span class="o">.</span><span class="n">to_circuit</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="ScheduledCircuit.get_circuit">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.get_circuit">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_qubit_coords</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">stim</span><span class="o">.</span><span class="n">Circuit</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_qubit_coords</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">stim</span><span class="o">.</span><span class="n">Circuit</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build and return the ``stim.Circuit`` instance represented by</span>
 <span class="sd">        ``self``.</span>
 
@@ -617,7 +626,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="viewcode-block" id="ScheduledCircuit.get_repeated_circuit">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.get_repeated_circuit">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_repeated_circuit</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_repeated_circuit</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">repetitions</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">include_qubit_coords</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -670,7 +679,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="viewcode-block" id="ScheduledCircuit.map_qubit_indices">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.map_qubit_indices">[docs]</a>
-    <span class="k">def</span> <span class="nf">map_qubit_indices</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">map_qubit_indices</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">qubit_index_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScheduledCircuit</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Map the qubits **indices** the :class:`ScheduledCircuit` instance is</span>
@@ -715,7 +724,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="viewcode-block" id="ScheduledCircuit.map_to_qubits">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.map_to_qubits">[docs]</a>
-    <span class="k">def</span> <span class="nf">map_to_qubits</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">map_to_qubits</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">qubit_map</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">GridQubit</span><span class="p">],</span> <span class="n">GridQubit</span><span class="p">],</span>
         <span class="n">inplace_qubit_map</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -749,12 +758,12 @@ window.addEventListener("load", () => mermaid.run());
         <span class="k">return</span> <span class="n">operand</span></div>
 
 
-    <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScheduledCircuit</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScheduledCircuit</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ScheduledCircuit</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qubit_map</span><span class="p">,</span> <span class="n">_avoid_checks</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ScheduledCircuit</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ScheduledCircuit</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ScheduledCircuit</span><span class="p">(</span>
             <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">),</span>
             <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span><span class="p">),</span>
@@ -763,7 +772,7 @@ window.addEventListener("load", () => mermaid.run());
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">scheduled_moments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Moment</span><span class="p">]]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scheduled_moments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Moment</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Yields ``stim.Circuit`` instances representing a moment with their</span>
 <span class="sd">        computed schedule.</span>
 
@@ -774,16 +783,16 @@ window.addEventListener("load", () => mermaid.run());
         <span class="k">yield from</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">moments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Moment</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">moments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Moment</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterator over the internal moments representing the computation.&quot;&quot;&quot;</span>
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">qubits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">frozenset</span><span class="p">[</span><span class="n">GridQubit</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">qubits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">frozenset</span><span class="p">[</span><span class="n">GridQubit</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set of qubits on which the circuit is applied.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">frozenset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_qubit_map</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_get_moment_index_by_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schedule</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_moment_index_by_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schedule</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the index of the moment scheduled at the provided schedule.</span>
 
 <span class="sd">        Args:</span>
@@ -818,7 +827,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="viewcode-block" id="ScheduledCircuit.moment_at_schedule">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.moment_at_schedule">[docs]</a>
-    <span class="k">def</span> <span class="nf">moment_at_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schedule</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Moment</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">moment_at_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schedule</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Moment</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the :class:`~tqec.circuit.moment.Moment` instance scheduled at</span>
 <span class="sd">        the provided schedule.</span>
 
@@ -842,7 +851,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="viewcode-block" id="ScheduledCircuit.append_new_moment">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.append_new_moment">[docs]</a>
-    <span class="k">def</span> <span class="nf">append_new_moment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">moment</span><span class="p">:</span> <span class="n">Moment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">append_new_moment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">moment</span><span class="p">:</span> <span class="n">Moment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Schedule the provided :class:`~tqec.circuit.moment.Moment` instance</span>
 <span class="sd">        at the end of the circuit. The new schedule will be the last schedule</span>
 <span class="sd">        plus one.</span>
@@ -862,7 +871,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="viewcode-block" id="ScheduledCircuit.add_to_schedule_index">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.add_to_schedule_index">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_to_schedule_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schedule</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">moment</span><span class="p">:</span> <span class="n">Moment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_schedule_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schedule</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">moment</span><span class="p">:</span> <span class="n">Moment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add the operations contained in the provided ``moment`` to the</span>
 <span class="sd">        provided schedule.</span>
 
@@ -889,7 +898,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="viewcode-block" id="ScheduledCircuit.append_observable">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.append_observable">[docs]</a>
-    <span class="k">def</span> <span class="nf">append_observable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">stim</span><span class="o">.</span><span class="n">GateTarget</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">append_observable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">stim</span><span class="o">.</span><span class="n">GateTarget</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Append an ``OBSERVABLE_INCLUDE`` instruction to the last moment.</span>
 
 <span class="sd">        Args:</span>
@@ -903,7 +912,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="viewcode-block" id="ScheduledCircuit.append_annotation">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.append_annotation">[docs]</a>
-    <span class="k">def</span> <span class="nf">append_annotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instruction</span><span class="p">:</span> <span class="n">stim</span><span class="o">.</span><span class="n">CircuitInstruction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">append_annotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instruction</span><span class="p">:</span> <span class="n">stim</span><span class="o">.</span><span class="n">CircuitInstruction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Append an annotation to the last moment.</span>
 
 <span class="sd">        Args:</span>
@@ -922,13 +931,13 @@ window.addEventListener("load", () => mermaid.run());
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">num_measurements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">num_measurements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of measurements in the represented computation.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">num_measurements</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ScheduledCircuit.filter_by_qubits">
 <a class="viewcode-back" href="../../../../_autosummary/tqec.circuit.ScheduledCircuit.html#tqec.circuit.ScheduledCircuit.filter_by_qubits">[docs]</a>
-    <span class="k">def</span> <span class="nf">filter_by_qubits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qubits_to_keep</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">GridQubit</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ScheduledCircuit</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter_by_qubits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qubits_to_keep</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">GridQubit</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ScheduledCircuit</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Filter the circuit to keep only the instructions that are applied on</span>
 <span class="sd">        the provided qubits. If an instruction is applied on a qubit that is</span>
 <span class="sd">        not in the provided list, it is removed.</span>
@@ -964,9 +973,17 @@ window.addEventListener("load", () => mermaid.run());
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">qubit_map</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QubitMap</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">qubit_map</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QubitMap</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Qubit map of the circuit.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qubit_map</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qubit_map</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ScheduledCircuit</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedule</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_schedule</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qubit_map</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_qubit_map</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_moments</span>
+        <span class="p">)</span></div>
 
 </pre></div>
 
@@ -997,8 +1014,8 @@ window.addEventListener("load", () => mermaid.run());
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1031,7 +1048,8 @@ window.addEventListener("load", () => mermaid.run());
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

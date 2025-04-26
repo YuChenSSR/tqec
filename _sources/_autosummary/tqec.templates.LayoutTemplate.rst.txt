@@ -13,9 +13,9 @@ LayoutTemplate
    
       ~LayoutTemplate.__init__
       ~LayoutTemplate.element_shape
+      ~LayoutTemplate.get_global_plaquettes
       ~LayoutTemplate.get_increments
       ~LayoutTemplate.get_indices_map_for_instantiation
-      ~LayoutTemplate.get_midline_plaquettes
       ~LayoutTemplate.get_spatially_distinct_subtemplates
       ~LayoutTemplate.instantiate
       ~LayoutTemplate.instantiation_origin
@@ -30,7 +30,6 @@ LayoutTemplate
    .. autosummary::
    
       ~LayoutTemplate.expected_plaquettes_number
-      ~LayoutTemplate.origin_shift
       ~LayoutTemplate.scalable_shape
    
    
@@ -42,9 +41,9 @@ LayoutTemplate
    
    .. automethod:: __init__
    .. automethod:: element_shape
+   .. automethod:: get_global_plaquettes
    .. automethod:: get_increments
    .. automethod:: get_indices_map_for_instantiation
-   .. automethod:: get_midline_plaquettes
    .. automethod:: get_spatially_distinct_subtemplates
    .. automethod:: instantiate
    .. automethod:: instantiation_origin

@@ -12,8 +12,8 @@ QubitTemplate
    .. autosummary::
    
       ~QubitTemplate.__init__
+      ~QubitTemplate.get_border_indices
       ~QubitTemplate.get_increments
-      ~QubitTemplate.get_midline_plaquettes
       ~QubitTemplate.get_spatially_distinct_subtemplates
       ~QubitTemplate.instantiate
       ~QubitTemplate.instantiation_origin
@@ -38,8 +38,8 @@ QubitTemplate
 
    
    .. automethod:: __init__
+   .. automethod:: get_border_indices
    .. automethod:: get_increments
-   .. automethod:: get_midline_plaquettes
    .. automethod:: get_spatially_distinct_subtemplates
    .. automethod:: instantiate
    .. automethod:: instantiation_origin

@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,20 +27,23 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -349,9 +352,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -370,7 +378,9 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="tqec">
+  <p><em>This is a rapidly evolving project - documentation and materials from previous recordings may become outdated quickly. If you encounter any inconsistencies or have questions, please <a class="reference external" href="https://github.com/tqec/tqec/issues/new/choose">open an issue</a>.</em></p>
+<hr class="docutils" />
+<section id="tqec">
 <h1>TQEC<a class="headerlink" href="#tqec" title="Link to this heading">#</a></h1>
 <p>TQEC(Topological Quantum Error Correction) is a design automation software for representing,
 constructing and compiling large-scale fault-tolerant quantum computations based on surface code and lattice surgery.</p>
@@ -397,15 +407,21 @@ These blocks can then be combined to construct large-scale logical computations,
 <h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading">#</a></h2>
 <p>Here we generate the circuits for a logical CNOT between two logical qubits to demonstrate how to use the tool.
 Refer to <a class="reference external" href="https://tqec.github.io/tqec/user_guide/quick_start.html">quick start</a> in the documentation for more detailed explanation.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqec</span> <span class="kn">import</span> <span class="n">BlockGraph</span><span class="p">,</span> <span class="n">compile_block_graph</span>
-<span class="kn">from</span> <span class="nn">tqec.noise_model</span> <span class="kn">import</span> <span class="n">NoiseModel</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec</span><span class="w"> </span><span class="kn">import</span> <span class="n">BlockGraph</span><span class="p">,</span> <span class="n">compile_block_graph</span><span class="p">,</span> <span class="n">NoiseModel</span>
+
+<span class="c1"># 0. Path to the logical_cnot.dae file</span>
+<span class="n">cnot_dae_filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;assets&quot;</span> <span class="o">/</span> <span class="s2">&quot;logical_cnot.dae&quot;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">cnot_dae_filepath</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The file &#39;</span><span class="si">{</span><span class="n">cnot_dae_filepath</span><span class="si">}</span><span class="s2">&#39; does not exists.&quot;</span><span class="p">)</span>
 
 <span class="c1"># 1. Construct the logical computation</span>
-<span class="n">block_graph</span> <span class="o">=</span> <span class="n">BlockGraph</span><span class="o">.</span><span class="n">from_dae_file</span><span class="p">(</span><span class="s2">&quot;assets/logical_cnot.dae&quot;</span><span class="p">)</span>
+<span class="n">block_graph</span> <span class="o">=</span> <span class="n">BlockGraph</span><span class="o">.</span><span class="n">from_dae_file</span><span class="p">(</span><span class="n">cnot_dae_filepath</span><span class="p">)</span>
 
-<span class="c1"># 2. Get the logical observables of interest and compile the computation</span>
-<span class="n">observables</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">block_graph</span><span class="o">.</span><span class="n">get_abstract_observables</span><span class="p">()</span>
-<span class="n">compiled_computation</span> <span class="o">=</span> <span class="n">compile_block_graph</span><span class="p">(</span><span class="n">block_graph</span><span class="p">,</span> <span class="n">observables</span><span class="o">=</span><span class="p">[</span><span class="n">observables</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="c1"># 2. Get the correlation surfaces of interest and compile the computation</span>
+<span class="n">correlation_surfaces</span> <span class="o">=</span> <span class="n">block_graph</span><span class="o">.</span><span class="n">find_correlation_surfaces</span><span class="p">()</span>
+<span class="n">compiled_computation</span> <span class="o">=</span> <span class="n">compile_block_graph</span><span class="p">(</span><span class="n">block_graph</span><span class="p">,</span> <span class="n">observables</span><span class="o">=</span><span class="p">[</span><span class="n">correlation_surfaces</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
 
 <span class="c1"># 3. Generate the `stim.Circuit` of target code distance</span>
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">compiled_computation</span><span class="o">.</span><span class="n">generate_stim_circuit</span><span class="p">(</span>
@@ -426,7 +442,7 @@ Refer to <a class="reference external" href="https://tqec.github.io/tqec/user_gu
 </section>
 <section id="community">
 <h2>Community<a class="headerlink" href="#community" title="Link to this heading">#</a></h2>
-<p>Every Wednesday, we hold <a class="reference external" href="https://calendar.google.com/calendar/event?action=TEMPLATE&amp;amp;tmeid=Mmw3NHVqZjRvaWo0bzl2bWtpamE0cmV0NzJfMjAyNDEwMzBUMTUzMDAwWiBhdXN0aW5nZm93bGVyQG0&amp;amp;tmsrc=austingfowler%40gmail.com&amp;amp;scp=ALL">meetings</a> to discuss project progress and conduct educational talks related to TQEC.</p>
+<p>Every Wednesday at 8:30am PST, we hold <a class="reference external" href="https://meet.jit.si/TQEC-design-automation">meetings</a> to discuss project progress and conduct educational talks related to TQEC.</p>
 <p>Here are some helpful links to learn more about the community:</p>
 <ul class="simple">
 <li><p>Overview of state of the art 2D QEC: <a class="reference external" href="https://docs.google.com/presentation/d/1xYBfkVMpA1YEVhpgTZpKvY8zeOO1VyHmRWvx_kDJEU8/edit?usp=sharing">Slides</a>/<a class="reference external" href="https://www.youtube.com/watch?v=aUtH7wdwBAM&amp;amp;t=2s">Video</a></p></li>
@@ -434,6 +450,7 @@ Refer to <a class="reference external" href="https://tqec.github.io/tqec/user_gu
 <li><p>Introduction to surface code quantum computation: <a class="reference external" href="https://docs.google.com/presentation/d/1GxGD9kzDYJA6X47BXGII2qjDVVoub5BsSVrGHRZINO4/edit?usp=sharing">Slides</a></p></li>
 <li><p>Programming a quantum computer using SketchUp: <a class="reference external" href="https://docs.google.com/presentation/d/1MjFuODipnmF-jDstEnQrqbsOtbSKZyPsuTOMo8wpSJc/edit#slide=id.p">Slides</a>/<a class="reference external" href="https://drive.google.com/file/d/1o1LMiidtYDcVoEFZXsJPb7XdTkZ83VFX/view?usp=drive_link">Video</a></p></li>
 </ul>
+<p>All the resources and group meeting recordings are available at <a class="reference external" href="https://docs.google.com/spreadsheets/d/11DSA2wzKLOrfTGNHunFvzsMYeO7jZ8Ny8kpzoC_wKQg/edit?resourcekey=0-PdGFkp5s-4XWihMSxk0UIg&amp;amp;gid=0#gid=0">this link</a>.</p>
 <p>Please join the <a class="reference external" href="https://groups.google.com/g/tqec-design-automation">Google group</a> to receive more updates and information!</p>
 </section>
 </section>
@@ -487,13 +504,13 @@ Refer to <a class="reference external" href="https://tqec.github.io/tqec/user_gu
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="_sources/index.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -508,8 +525,8 @@ Refer to <a class="reference external" href="https://tqec.github.io/tqec/user_gu
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -542,7 +559,8 @@ Refer to <a class="reference external" href="https://tqec.github.io/tqec/user_gu
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

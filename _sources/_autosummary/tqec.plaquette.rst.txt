@@ -21,14 +21,15 @@
       :toctree:
    
       FrozenDefaultDict
-      MeasurementBasis
       Plaquette
       PlaquetteOrientation
       PlaquetteQubits
       PlaquetteSide
       Plaquettes
+      RG
+      RPNG
+      RPNGDescription
       RepeatedPlaquettes
-      ResetBasis
       SquarePlaquetteQubits
    
    

@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,20 +26,23 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
@@ -349,9 +352,14 @@ window.addEventListener("load", () => mermaid.run());
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -414,17 +422,17 @@ window.addEventListener("load", () => mermaid.run());
 
 <span class="sd">.. code-block:: python</span>
 
-<span class="sd">    from tqec.position import Position2D</span>
+<span class="sd">    from tqec.utils.position import BlockPosition2D</span>
 <span class="sd">    from tqec.templates.layout import LayoutTemplate</span>
 <span class="sd">    from tqec.templates.qubit import QubitTemplate</span>
 
 <span class="sd">    qubit = QubitTemplate()</span>
 <span class="sd">    grid = LayoutTemplate(</span>
 <span class="sd">        {</span>
-<span class="sd">            Position2D(0, 0): qubit,</span>
-<span class="sd">            Position2D(0, 1): qubit,</span>
-<span class="sd">            Position2D(1, 0): qubit,</span>
-<span class="sd">            Position2D(1, 1): qubit,</span>
+<span class="sd">            BlockPosition2D(0, 0): qubit,</span>
+<span class="sd">            BlockPosition2D(0, 1): qubit,</span>
+<span class="sd">            BlockPosition2D(1, 0): qubit,</span>
+<span class="sd">            BlockPosition2D(1, 1): qubit,</span>
 <span class="sd">        }</span>
 <span class="sd">    )</span>
 
@@ -464,28 +472,35 @@ window.addEventListener("load", () => mermaid.run());
 <span class="sd">    17  27  28  27  28  18  45  55  56  55  56  46</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">override</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">override</span>
 
-<span class="kn">from</span> <span class="nn">tqec.exceptions</span> <span class="kn">import</span> <span class="n">TQECException</span>
-<span class="kn">from</span> <span class="nn">tqec.position</span> <span class="kn">import</span> <span class="n">Displacement</span><span class="p">,</span> <span class="n">Position2D</span><span class="p">,</span> <span class="n">Shape2D</span>
-<span class="kn">from</span> <span class="nn">tqec.scale</span> <span class="kn">import</span> <span class="n">Scalable2D</span>
-<span class="kn">from</span> <span class="nn">tqec.templates.base</span> <span class="kn">import</span> <span class="n">RectangularTemplate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.plaquette.plaquette</span><span class="w"> </span><span class="kn">import</span> <span class="n">Plaquette</span><span class="p">,</span> <span class="n">Plaquettes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.templates.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">RectangularTemplate</span><span class="p">,</span> <span class="n">Template</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.utils.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TQECException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.utils.frozendefaultdict</span><span class="w"> </span><span class="kn">import</span> <span class="n">FrozenDefaultDict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.utils.position</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BlockPosition2D</span><span class="p">,</span>
+    <span class="n">PlaquettePosition2D</span><span class="p">,</span>
+    <span class="n">PlaquetteShape2D</span><span class="p">,</span>
+    <span class="n">Shift2D</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.utils.scale</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlaquetteScalable2D</span>
 
 
 <div class="viewcode-block" id="LayoutTemplate">
 <a class="viewcode-back" href="../../../_autosummary/tqec.templates.LayoutTemplate.html#tqec.templates.LayoutTemplate">[docs]</a>
-<span class="k">class</span> <span class="nc">LayoutTemplate</span><span class="p">(</span><span class="n">RectangularTemplate</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LayoutTemplate</span><span class="p">(</span><span class="n">Template</span><span class="p">):</span>
 <div class="viewcode-block" id="LayoutTemplate.__init__">
 <a class="viewcode-back" href="../../../_autosummary/tqec.templates.LayoutTemplate.html#tqec.templates.LayoutTemplate.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">element_layout</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Position2D</span><span class="p">,</span> <span class="n">RectangularTemplate</span><span class="p">],</span>
-        <span class="n">default_increments</span><span class="p">:</span> <span class="n">Displacement</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">element_layout</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">BlockPosition2D</span><span class="p">,</span> <span class="n">RectangularTemplate</span><span class="p">],</span>
+        <span class="n">default_increments</span><span class="p">:</span> <span class="n">Shift2D</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A template representing a layout of other templates.</span>
 
@@ -524,7 +539,7 @@ window.addEventListener("load", () => mermaid.run());
         <span class="n">min_y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">all_positions</span><span class="p">)</span>
         <span class="n">max_y</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">all_positions</span><span class="p">)</span>
         <span class="c1"># Shift the bounding box to the origin</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_origin_shift</span> <span class="o">=</span> <span class="n">Displacement</span><span class="p">(</span><span class="n">min_x</span><span class="p">,</span> <span class="n">min_y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_origin</span> <span class="o">=</span> <span class="n">BlockPosition2D</span><span class="p">(</span><span class="n">min_x</span><span class="p">,</span> <span class="n">min_y</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nx</span> <span class="o">=</span> <span class="n">max_x</span> <span class="o">-</span> <span class="n">min_x</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ny</span> <span class="o">=</span> <span class="n">max_y</span> <span class="o">-</span> <span class="n">min_y</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -533,10 +548,10 @@ window.addEventListener("load", () => mermaid.run());
 
 <div class="viewcode-block" id="LayoutTemplate.get_indices_map_for_instantiation">
 <a class="viewcode-back" href="../../../_autosummary/tqec.templates.LayoutTemplate.html#tqec.templates.LayoutTemplate.get_indices_map_for_instantiation">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_indices_map_for_instantiation</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_indices_map_for_instantiation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">instantiate_indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Position2D</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">BlockPosition2D</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get one index map for each of the templates in the layout.</span>
 
 <span class="sd">        This method is used internally by :meth:`LayoutTemplate.instantiate` and</span>
@@ -562,7 +577,7 @@ window.addEventListener("load", () => mermaid.run());
         <span class="k">if</span> <span class="n">instantiate_indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">instantiate_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expected_plaquettes_number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
         <span class="n">index_count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">indices_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Position2D</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">indices_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">BlockPosition2D</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">position</span><span class="p">,</span> <span class="n">template</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layout</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">indices_map</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span> <span class="n">instantiate_indices</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">index_count</span><span class="p">]</span>
@@ -572,48 +587,86 @@ window.addEventListener("load", () => mermaid.run());
         <span class="k">return</span> <span class="n">indices_map</span></div>
 
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">origin_shift</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Displacement</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the shift that should be applied to the global origin to</span>
-<span class="sd">        become the template origin.</span>
+<div class="viewcode-block" id="LayoutTemplate.get_global_plaquettes">
+<a class="viewcode-back" href="../../../_autosummary/tqec.templates.LayoutTemplate.html#tqec.templates.LayoutTemplate.get_global_plaquettes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_global_plaquettes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">individual_plaquettes</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">BlockPosition2D</span><span class="p">,</span> <span class="n">Plaquettes</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Plaquettes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Merge the provided ``individual_plaquettes`` into a single</span>
+<span class="sd">        :class:`~tqec.plaquette.plaquette.Plaquettes` instance that can be used</span>
+<span class="sd">        to instantiate ``self``.</span>
 
-<span class="sd">        Due to how :class:`LayoutTemplate` organizes the</span>
-<span class="sd">        :class:`~tqec.templates.base.Template` instances it manages, it is entirely</span>
-<span class="sd">        possible (and valid) for the template to not be aligned with the global</span>
-<span class="sd">        origin.</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TQECException: if the provided ``individual_plaquettes`` does not</span>
+<span class="sd">                cover all the :class:`~tqec.utils.position.BlockPosition2D` where</span>
+<span class="sd">                there is a template in ``self``.</span>
+<span class="sd">            TQECException: if the provided ``individual_plaquettes`` have</span>
+<span class="sd">                different values for their ``default_factory``.</span>
 
-<span class="sd">        For example, the following instance exhibit this behaviour:</span>
-
-<span class="sd">        .. code-block:: python</span>
-
-<span class="sd">            not_on_origin = LayoutTemplate({Position2D(1, 1): QubitTemplate()})</span>
-<span class="sd">            assert not_on_origin.origin_shift == Position2D(1, 1)</span>
+<span class="sd">        Args:</span>
+<span class="sd">            individual_plaquettes: a mapping from positions to plaquette</span>
+<span class="sd">                collections. The keys should cover all the positions where a</span>
+<span class="sd">                template is present in ``self``.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            the shift that should be applied to the global origin to become the</span>
-<span class="sd">            template origin.</span>
+<span class="sd">            a unique :class:`~tqec.plaquette.plaquette.Plaquettes` instance that</span>
+<span class="sd">            can be used with ``self`` to generate a quantum circuit with</span>
+<span class="sd">            :meth:`~tqec.compile.generation.generate_circuit`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_origin_shift</span>
+        <span class="n">missing_positions</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_layout</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">frozenset</span><span class="p">(</span>
+            <span class="n">individual_plaquettes</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">missing_positions</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TQECException</span><span class="p">(</span>
+                <span class="s2">&quot;The following expected positions were not found in the &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;provided individual_plaquettes: </span><span class="si">{</span><span class="n">missing_positions</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">default_values</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Plaquette</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">index_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_indices_map_for_instantiation</span><span class="p">()</span>
+        <span class="n">global_plaquettes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Plaquette</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">position</span><span class="p">,</span> <span class="n">index_map</span> <span class="ow">in</span> <span class="n">index_maps</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">global_plaquettes</span> <span class="o">|=</span> <span class="p">{</span>
+                <span class="n">index_map</span><span class="p">[</span><span class="n">local_index</span><span class="p">]:</span> <span class="n">plaquette</span>
+                <span class="k">for</span> <span class="n">local_index</span><span class="p">,</span> <span class="n">plaquette</span> <span class="ow">in</span> <span class="n">individual_plaquettes</span><span class="p">[</span>
+                    <span class="n">position</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+            <span class="n">default_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">individual_plaquettes</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">default_value</span>
+            <span class="p">)</span>
+        <span class="n">unique_default_values</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">default_values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_default_values</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TQECException</span><span class="p">(</span>
+                <span class="s2">&quot;Found several different default factories: &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">unique_default_values</span><span class="si">}</span><span class="s2">. Cannot pick one for the merged &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Plaquettes</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> instance.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">Plaquettes</span><span class="p">(</span>
+            <span class="n">FrozenDefaultDict</span><span class="p">(</span>
+                <span class="n">global_plaquettes</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">unique_default_values</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
 
     <span class="nd">@property</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">scalable_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Scalable2D</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scalable_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PlaquetteScalable2D</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a scalable version of the template shape.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Scalable2D</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">PlaquetteScalable2D</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_nx</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element_scalable_shape</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ny</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element_scalable_shape</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="LayoutTemplate.element_shape">
 <a class="viewcode-back" href="../../../_autosummary/tqec.templates.LayoutTemplate.html#tqec.templates.LayoutTemplate.element_shape">[docs]</a>
-    <span class="k">def</span> <span class="nf">element_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Shape2D</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">element_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PlaquetteShape2D</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the uniform shape of the element templates.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element_scalable_shape</span><span class="o">.</span><span class="n">to_shape_2d</span><span class="p">(</span><span class="n">k</span><span class="p">)</span></div>
 
 
     <span class="nd">@property</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">expected_plaquettes_number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expected_plaquettes_number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the number of plaquettes expected from the `instantiate`</span>
 <span class="sd">        method.</span>
 
@@ -627,7 +680,7 @@ window.addEventListener("load", () => mermaid.run());
 <div class="viewcode-block" id="LayoutTemplate.instantiate">
 <a class="viewcode-back" href="../../../_autosummary/tqec.templates.LayoutTemplate.html#tqec.templates.LayoutTemplate.instantiate">[docs]</a>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">instantiate</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">instantiate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">plaquette_indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">int_</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate the numpy array representing the template.</span>
@@ -652,8 +705,8 @@ window.addEventListener("load", () => mermaid.run());
                 <span class="n">imap</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">element</span><span class="o">.</span><span class="n">expected_plaquettes_number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
             <span class="p">]</span>
             <span class="n">element_instantiation</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">instantiate</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
-            <span class="n">shifted_pos</span> <span class="o">=</span> <span class="n">Position2D</span><span class="p">(</span>
-                <span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin_shift</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin_shift</span><span class="o">.</span><span class="n">y</span>
+            <span class="n">shifted_pos</span> <span class="o">=</span> <span class="n">BlockPosition2D</span><span class="p">(</span>
+                <span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_origin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_origin</span><span class="o">.</span><span class="n">y</span>
             <span class="p">)</span>
             <span class="n">ret</span><span class="p">[</span>
                 <span class="n">shifted_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">element_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="p">(</span><span class="n">shifted_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -667,12 +720,8 @@ window.addEventListener("load", () => mermaid.run());
 <div class="viewcode-block" id="LayoutTemplate.instantiation_origin">
 <a class="viewcode-back" href="../../../_autosummary/tqec.templates.LayoutTemplate.html#tqec.templates.LayoutTemplate.instantiation_origin">[docs]</a>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">instantiation_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Position2D</span><span class="p">:</span>
-        <span class="n">origin_shift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin_shift</span>
-        <span class="n">element_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_shape</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Position2D</span><span class="p">(</span>
-            <span class="n">origin_shift</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">element_shape</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">origin_shift</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">element_shape</span><span class="o">.</span><span class="n">y</span>
-        <span class="p">)</span></div>
+    <span class="k">def</span><span class="w"> </span><span class="nf">instantiation_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PlaquettePosition2D</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_origin</span><span class="o">.</span><span class="n">get_top_left_plaquette_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element_shape</span><span class="p">(</span><span class="n">k</span><span class="p">))</span></div>
 </div>
 
 </pre></div>
@@ -704,8 +753,8 @@ window.addEventListener("load", () => mermaid.run());
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -738,7 +787,8 @@ window.addEventListener("load", () => mermaid.run());
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

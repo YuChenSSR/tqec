@@ -21,17 +21,13 @@
       :toctree:
    
       BlockGraph
+      CorrelationSurface
       Cube
-      CubeKind
       Pipe
       PipeKind
       Port
-      YCube
+      YHalfCube
       ZXCube
-      ZXEdge
-      ZXGraph
-      ZXKind
-      ZXNode
    
    
 

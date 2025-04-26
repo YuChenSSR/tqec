@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,29 +27,32 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/detectors/detector_computation';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="How to contribute" href="../../contributor_guide.html" />
-    <link rel="prev" title="Automatic detector computation" href="index.html" />
+    <link rel="next" title="Detailed plots with tqec" href="../detailed_plots.html" />
+    <link rel="prev" title="COLLADA Interoperability" href="../collada_interop.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -363,10 +366,8 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../build_computations.html">Build Computations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../collada_interop.html">COLLADA Interoperability</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Detectors Computation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">How to automatically find detectors?</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Detectors Computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../detailed_plots.html">Detailed plotting</a></li>
 </ul>
 </div>
 </nav></div>
@@ -374,9 +375,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -404,9 +410,6 @@
     </li>
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
-    
-    
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Automatic detector computation</a></li>
     
     <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">How to automatically find detectors?</span></li>
   </ul>
@@ -441,7 +444,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stim</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">stim</span>
 
 <span class="n">circuit</span> <span class="o">=</span> <span class="n">stim</span><span class="o">.</span><span class="n">Circuit</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">QUBIT_COORDS(0) 0</span>
@@ -490,7 +493,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqec.circuit.detectors.fragment</span> <span class="kn">import</span> <span class="n">split_stim_circuit_into_fragments</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.detectors.fragment</span><span class="w"> </span><span class="kn">import</span> <span class="n">split_stim_circuit_into_fragments</span>
 
 <span class="n">fragments</span> <span class="o">=</span> <span class="n">split_stim_circuit_into_fragments</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
 </pre></div>
@@ -554,7 +557,7 @@ Fragment(circuit=stim.Circuit(&#39;&#39;&#39;
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqec.circuit.detectors.flow</span> <span class="kn">import</span> <span class="n">build_flows_from_fragments</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.detectors.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_flows_from_fragments</span>
 
 <span class="n">flows</span> <span class="o">=</span> <span class="n">build_flows_from_fragments</span><span class="p">(</span><span class="n">fragments</span><span class="p">)</span>
 </pre></div>
@@ -641,7 +644,7 @@ total_number_of_measurements = 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">IFrame</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">IFrame</span>
 
 <span class="n">IFrame</span><span class="p">(</span>
     <span class="s2">&quot;https://algassert.com/crumble#circuit=Q(0,0)0;Q(1,0)1;Q(2,0)2;Q(3,0)3;Q(4,0)4;R_0_1_2_3_4;MARKZ(0)0;TICK;CX_0_1_2_3;TICK;CX_2_1_4_3;TICK;M_1_3&quot;</span><span class="p">,</span>
@@ -679,7 +682,7 @@ total_number_of_measurements = 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">IFrame</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">IFrame</span>
 
 <span class="n">IFrame</span><span class="p">(</span>
     <span class="s2">&quot;https://algassert.com/crumble#circuit=Q(0,0)0;Q(1,0)1;Q(2,0)2;Q(3,0)3;Q(4,0)4;R_0_1_2_3_4;MARKZ(0)1;TICK;CX_0_1_2_3;TICK;CX_2_1_4_3;TICK;M_1_3;MARKZ(0)1&quot;</span><span class="p">,</span>
@@ -718,7 +721,7 @@ total_number_of_measurements = 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">IFrame</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">IFrame</span>
 
 <span class="n">IFrame</span><span class="p">(</span>
     <span class="s2">&quot;https://algassert.com/crumble#circuit=Q(0,0)0;Q(1,0)1;Q(2,0)2;Q(3,0)3;Q(4,0)4;R_0_1_2_3_4;MARKZ(0)0_1_2;TICK;CX_0_1_2_3;TICK;CX_2_1_4_3;TICK;M_1_3;MARKZ(0)1&quot;</span><span class="p">,</span>
@@ -768,7 +771,7 @@ total_number_of_measurements = 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">IFrame</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">IFrame</span>
 
 <span class="n">IFrame</span><span class="p">(</span>
     <span class="s2">&quot;https://algassert.com/crumble#circuit=Q(0,0)0;Q(1,0)1;Q(2,0)2;Q(3,0)3;Q(4,0)4;R_0_1_2_3_4;MARKZ(0)1;TICK;CX_0_1_2_3;TICK;CX_2_1_4_3;TICK;H_1;TICK;M_1_3;MARKZ(0)1&quot;</span><span class="p">,</span>
@@ -808,7 +811,7 @@ total_number_of_measurements = 3
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqec.circuit.detectors.match</span> <span class="kn">import</span> <span class="n">match_detectors_from_flows_shallow</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.detectors.match</span><span class="w"> </span><span class="kn">import</span> <span class="n">match_detectors_from_flows_shallow</span>
 
 <span class="n">qubit_coordinates</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">q</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">coords</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_final_qubit_coordinates</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -854,8 +857,8 @@ Detectors found for fragment number 2:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqec.circuit.detectors.construction</span> <span class="kn">import</span> <span class="n">annotate_detectors_automatically</span>
-<span class="kn">from</span> <span class="nn">tqec.circuit.detectors.utils</span> <span class="kn">import</span> <span class="n">remove_annotations</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.detectors.construction</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotate_detectors_automatically</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.circuit.detectors.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">remove_annotations</span>
 
 <span class="n">base_circuit</span> <span class="o">=</span> <span class="n">remove_annotations</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
 <span class="n">base_circuit</span><span class="o">.</span><span class="n">diagram</span><span class="p">(</span><span class="s2">&quot;timeline-svg&quot;</span><span class="p">)</span>
@@ -940,20 +943,20 @@ DETECTOR(3, 1) rec[-1] rec[-2] rec[-4]
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="../collada_interop.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Automatic detector computation</p>
+        <p class="prev-next-title">COLLADA Interoperability</p>
       </div>
     </a>
     <a class="right-next"
-       href="../../contributor_guide.html"
+       href="../detailed_plots.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">How to contribute</p>
+        <p class="prev-next-title">Detailed plots with <code class="docutils literal notranslate"><span class="pre">tqec</span></code></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -985,13 +988,13 @@ DETECTOR(3, 1) rec[-1] rec[-2] rec[-4]
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../../_sources/user_guide/detectors/detector_computation.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/user_guide/detectors/detector_computation.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -1006,8 +1009,8 @@ DETECTOR(3, 1) rec[-1] rec[-2] rec[-4]
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1040,7 +1043,8 @@ DETECTOR(3, 1) rec[-1] rec[-2] rec[-4]
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

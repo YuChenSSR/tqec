@@ -12,6 +12,7 @@ Plaquette
    .. autosummary::
    
       ~Plaquette.__init__
+      ~Plaquette.is_empty
       ~Plaquette.project_on_boundary
       ~Plaquette.reliable_hash
    
@@ -29,6 +30,7 @@ Plaquette
       ~Plaquette.qubits
       ~Plaquette.circuit
       ~Plaquette.mergeable_instructions
+      ~Plaquette.debug_information
    
    
 
@@ -38,6 +40,7 @@ Plaquette
 
    
    .. automethod:: __init__
+   .. automethod:: is_empty
    .. automethod:: project_on_boundary
    .. automethod:: reliable_hash
    

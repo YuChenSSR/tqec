@@ -16,7 +16,7 @@ ZXCube
       ~ZXCube.as_tuple
       ~ZXCube.from_str
       ~ZXCube.get_basis_along
-      ~ZXCube.to_zx_kind
+      ~ZXCube.with_basis_along
    
    
 
@@ -26,7 +26,9 @@ ZXCube
 
    .. autosummary::
    
-      ~ZXCube.is_spatial_junction
+      ~ZXCube.is_spatial
+      ~ZXCube.normal_basis
+      ~ZXCube.normal_direction
       ~ZXCube.x
       ~ZXCube.y
       ~ZXCube.z
@@ -43,6 +45,6 @@ ZXCube
    .. automethod:: as_tuple
    .. automethod:: from_str
    .. automethod:: get_basis_along
-   .. automethod:: to_zx_kind
+   .. automethod:: with_basis_along
    
    

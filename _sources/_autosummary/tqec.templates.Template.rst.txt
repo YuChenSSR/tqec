@@ -13,7 +13,6 @@ Template
    
       ~Template.__init__
       ~Template.get_increments
-      ~Template.get_midline_plaquettes
       ~Template.get_spatially_distinct_subtemplates
       ~Template.instantiate
       ~Template.instantiation_origin
@@ -39,7 +38,6 @@ Template
    
    .. automethod:: __init__
    .. automethod:: get_increments
-   .. automethod:: get_midline_plaquettes
    .. automethod:: get_spatially_distinct_subtemplates
    .. automethod:: instantiate
    .. automethod:: instantiation_origin

@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,20 +27,23 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/tqec.plaquette.PlaquetteQubits';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -357,93 +360,108 @@
 <li class="toctree-l2"><a class="reference internal" href="tqec.templates.LayoutTemplate.html">LayoutTemplate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.templates.QubitTemplate.html">QubitTemplate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.templates.Template.html">Template</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.templates.TemplateOrientation.html">TemplateOrientation</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="tqec.plaquette.html">tqec.plaquette</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.FrozenDefaultDict.html">FrozenDefaultDict</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.MeasurementBasis.html">MeasurementBasis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.Plaquette.html">Plaquette</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.PlaquetteOrientation.html">PlaquetteOrientation</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">PlaquetteQubits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.PlaquetteSide.html">PlaquetteSide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.Plaquettes.html">Plaquettes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.RG.html">RG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.RPNG.html">RPNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.RPNGDescription.html">RPNGDescription</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.RepeatedPlaquettes.html">RepeatedPlaquettes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.ResetBasis.html">ResetBasis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.plaquette.SquarePlaquetteQubits.html">SquarePlaquetteQubits</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tqec.circuit.html">tqec.circuit</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="tqec.circuit.annotate_detectors_automatically.html">annotate_detectors_automatically</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.circuit.generate_circuit.html">generate_circuit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.circuit.merge_scheduled_circuits.html">merge_scheduled_circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.circuit.QubitMap.html">QubitMap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.circuit.ScheduledCircuit.html">ScheduledCircuit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.circuit.ScheduleException.html">tqec.circuit.ScheduleException</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tqec.computation.html">tqec.computation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="tqec.computation.BlockGraph.html">BlockGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.computation.CorrelationSurface.html">CorrelationSurface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.computation.Cube.html">Cube</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.computation.CubeKind.html">CubeKind</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.computation.Pipe.html">Pipe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.computation.PipeKind.html">PipeKind</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.computation.Port.html">Port</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.computation.YCube.html">YCube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.computation.YHalfCube.html">YHalfCube</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.computation.ZXCube.html">ZXCube</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.computation.ZXEdge.html">ZXEdge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.computation.ZXGraph.html">ZXGraph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.computation.ZXKind.html">ZXKind</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.computation.ZXNode.html">ZXNode</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tqec.compile.html">tqec.compile</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="tqec.compile.compile_block_graph.html">compile_block_graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.compile.BlockBuilder.html">BlockBuilder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.compile.CompiledBlock.html">CompiledBlock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.generate_circuit.html">generate_circuit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.compile.CubeSpec.html">CubeSpec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.compile.PipeSpec.html">PipeSpec</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.compile.SubstitutionBuilder.html">SubstitutionBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.TopologicalComputationGraph.html">TopologicalComputationGraph</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tqec.compile.blocks.html">tqec.compile.blocks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.merge_parallel_block_layers.html">merge_parallel_block_layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.BaseComposedLayer.html">BaseComposedLayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.BaseLayer.html">BaseLayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.Block.html">Block</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.LayoutLayer.html">LayoutLayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.LayoutPosition2D.html">LayoutPosition2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.PlaquetteLayer.html">PlaquetteLayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.RawCircuitLayer.html">RawCircuitLayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.RepeatedLayer.html">RepeatedLayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.SequencedLayers.html">SequencedLayers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.SpatialBlockBorder.html">SpatialBlockBorder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.compile.blocks.TemporalBlockBorder.html">TemporalBlockBorder</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tqec.gallery.html">tqec.gallery</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.logical_cnot_block_graph.html">logical_cnot_block_graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.logical_cnot_zx_graph.html">logical_cnot_zx_graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.three_cnots_block_graph.html">three_cnots_block_graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.three_cnots_zx_graph.html">three_cnots_zx_graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.cnot.html">cnot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.cz.html">cz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.memory.html">memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.move_rotation.html">move_rotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.stability.html">stability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.gallery.three_cnots.html">three_cnots</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tqec.interop.html">tqec.interop</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tqec.interop.block_synthesis.html">block_synthesis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.interop.display_collada_model.html">display_collada_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.interop.positioned_block_synthesis.html">positioned_block_synthesis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.interop.read_block_graph_from_dae_file.html">read_block_graph_from_dae_file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.interop.write_block_graph_to_dae_file.html">write_block_graph_to_dae_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.interop.PositionedZX.html">PositionedZX</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.interop.RGBA.html">RGBA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.interop.SynthesisStrategy.html">SynthesisStrategy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.interop.TQECColor.html">TQECColor</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tqec.simulation.html">tqec.simulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tqec.simulation.heuristic_custom_error_key.html">heuristic_custom_error_key</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.simulation.plot_observable_as_inset.html">plot_observable_as_inset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.simulation.split_stats_for_observables.html">split_stats_for_observables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tqec.simulation.start_simulation_using_sinter.html">start_simulation_using_sinter</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="tqec.exceptions.html">tqec.exceptions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="tqec.exceptions.TQECException.html">tqec.exceptions.TQECException</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tqec.exceptions.TQECWarning.html">tqec.exceptions.TQECWarning</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tqec.utils.html">tqec.utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.round_or_fail.html">round_or_fail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.Basis.html">Basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.BlockPosition2D.html">BlockPosition2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.Direction3D.html">Direction3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.LinearFunction.html">LinearFunction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.NoiseModel.html">NoiseModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.Orientation.html">Orientation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.PatchStyle.html">PatchStyle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.PhysicalQubitPosition2D.html">PhysicalQubitPosition2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.PlaquettePosition2D.html">PlaquettePosition2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.Position3D.html">Position3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.Shift2D.html">Shift2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.SignedDirection3D.html">SignedDirection3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tqec.utils.TQECException.html">tqec.utils.TQECException</a></li>
 </ul>
 </details></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Others</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="tqec.Interval.html">Interval</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.Direction3D.html">Direction3D</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.Displacement.html">Displacement</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.Position2D.html">Position2D</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.Position3D.html">Position3D</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.Shape2D.html">Shape2D</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.SignedDirection3D.html">SignedDirection3D</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.LinearFunction.html">LinearFunction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.Scalable2D.html">Scalable2D</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.round_or_fail.html">round_or_fail</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tqec.NoiseModel.html">NoiseModel</a></li>
 </ul>
 </div>
 </nav></div>
@@ -451,9 +469,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -529,10 +552,25 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_qubits</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_qubits</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_qubits_indices</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">syndrome_qubits</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_qubits_with_indices</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">qubit_map</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">syndrome_qubits_indices</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">syndrome_qubits_with_indices</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_qubits</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">syndrome_qubits</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -565,12 +603,12 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tqec.plaquette.PlaquetteQubits.get_edge_qubits">
-<span class="sig-name descname"><span class="pre">get_edge_qubits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">TemplateOrientation.HORIZONTAL</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tqec/plaquette/qubit.html#PlaquetteQubits.get_edge_qubits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tqec.plaquette.PlaquetteQubits.get_edge_qubits" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_edge_qubits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Orientation.HORIZONTAL</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tqec/plaquette/qubit.html#PlaquetteQubits.get_edge_qubits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tqec.plaquette.PlaquetteQubits.get_edge_qubits" title="Link to this definition">#</a></dt>
 <dd><p>Return the data qubits on the edge of the plaquette. By convention,
 the edge is the one with the highest index in the relevant axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>orientation</strong> (<a class="reference internal" href="tqec.templates.TemplateOrientation.html#tqec.templates.TemplateOrientation" title="tqec.templates.TemplateOrientation"><em>TemplateOrientation</em></a><em>, </em><em>optional</em>) – Whether to use horizontal or
+<dd class="field-odd"><p><strong>orientation</strong> (<em>TemplateOrientation</em><em>, </em><em>optional</em>) – Whether to use horizontal or
 vertical orientation as the axis. Defaults to horizontal.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -664,13 +702,13 @@ greater x-coordinate value. Up and down are about the y-coordinate.</p>
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/_autosummary/tqec.plaquette.PlaquetteQubits.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/tqec.plaquette.PlaquetteQubits.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -685,8 +723,8 @@ greater x-coordinate value. Up and down are about the y-coordinate.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -719,7 +757,8 @@ greater x-coordinate value. Up and down are about the y-coordinate.</p>
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

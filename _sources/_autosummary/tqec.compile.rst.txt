@@ -17,6 +17,7 @@
       :toctree:
    
       compile_block_graph
+      generate_circuit
    
    
 
@@ -27,11 +28,9 @@
    .. autosummary::
       :toctree:
    
-      BlockBuilder
-      CompiledBlock
       CubeSpec
       PipeSpec
-      SubstitutionBuilder
+      TopologicalComputationGraph
    
    
 

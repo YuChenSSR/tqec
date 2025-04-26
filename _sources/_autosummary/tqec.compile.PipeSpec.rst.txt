@@ -21,8 +21,9 @@ PipeSpec
 
    .. autosummary::
    
-      ~PipeSpec.spec1
-      ~PipeSpec.spec2
+      ~PipeSpec.at_temporal_hadamard_layer
+      ~PipeSpec.cube_specs
+      ~PipeSpec.cube_templates
       ~PipeSpec.pipe_kind
    
    

@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,26 +27,29 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'contributor_guide';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="tqec architecture" href="architecture.html" />
-    <link rel="prev" title="How to automatically find detectors?" href="user_guide/detectors/detector_computation.html" />
+    <link rel="prev" title="Detailed plots with tqec" href="user_guide/detailed_plots.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -358,9 +361,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -418,14 +426,33 @@
 <p>If you want to help maintaining and improving the <code class="docutils literal notranslate"><span class="pre">tqec</span></code> package, you will need
 to install a few more packages than the regular installation. It is also
 recommended to use an editable installation.</p>
+<p>Currently, <code class="docutils literal notranslate"><span class="pre">tqec</span></code> is compatible with Python 3.10, 3.11 and 3.12. Some dependencies limit the project’s
+compatibility with Python 3.13.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository to have local files to work on</span>
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tqec/tqec.git
 <span class="c1"># Install the library with developer dependencies</span>
+<span class="c1"># Note the &quot;-e&quot; option, that&#39;s important.</span>
 python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;tqec[all]&#39;</span>
 <span class="c1"># Go in the tqec directory and enable pre-commit</span>
 <span class="nb">cd</span><span class="w"> </span>tqec
 pre-commit<span class="w"> </span>install
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You will have to install <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> separately as the instructions above only install a <code class="docutils literal notranslate"><span class="pre">pandoc</span></code> wrapper.
+See <a class="reference external" href="https://stackoverflow.com/a/71585691">https://stackoverflow.com/a/71585691</a> for more info.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-e</span></code> option to the <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span></code> call is <strong>important</strong> as it installs an editable version
+of <code class="docutils literal notranslate"><span class="pre">tqec</span></code>. Without that option, changes made in the folder <code class="docutils literal notranslate"><span class="pre">tqec</span></code> will <strong>not</strong> be reflected on the
+<code class="docutils literal notranslate"><span class="pre">tqec</span></code> package installed.</p>
+<p>Without the <code class="docutils literal notranslate"><span class="pre">-e</span></code> option, <code class="docutils literal notranslate"><span class="pre">pip</span></code> copies all the files it needs (mainly, the code) to the current Python
+package folder. Any modification to the original <code class="docutils literal notranslate"><span class="pre">tqec</span></code> folder you installed the package from
+will not be reflected automatically on the copied files, which will limit your ability to test new
+changes on the code base. The <code class="docutils literal notranslate"><span class="pre">-e</span></code> option tells <code class="docutils literal notranslate"><span class="pre">pip</span></code> to create a link instead of copying, which means
+that the code in the <code class="docutils literal notranslate"><span class="pre">tqec</span></code> folder will be the code used when importing <code class="docutils literal notranslate"><span class="pre">tqec</span></code>.</p>
 </div>
 <p>If you encounter any issue during the installation, please refer to <a class="reference internal" href="user_guide/installation.html#installation"><span class="std std-ref">How to install tqec</span></a> for more information.</p>
 <p>You can now start contributing, following the rules explained in the next sections.</p>
@@ -462,25 +489,25 @@ issues to:</p>
 </section>
 <section id="create-a-specific-branch-for-each-issue">
 <h3>3. Create a specific branch for each issue<a class="headerlink" href="#create-a-specific-branch-for-each-issue" title="Link to this heading">#</a></h3>
-<p>If you are part of the QCHacker community, you will be able to
+<p>If you are a part of the tqec community, you will be able to
 <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging">create a branch</a>
-directly in the QCHacker/tqec repository. If you are not, you can
+directly in the tqec repository. If you are not, you can
 <a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo">fork</a>
-the QCHacker/tqec repository on your own account
+the tqec repository on your own account
 (<a class="reference external" href="https://github.com/tqec/tqec/fork">click here</a>) and create a branch there.</p>
 </section>
 <section id="work-in-your-branch-and-submit-a-pull-request">
 <h3>4. Work in your branch and submit a pull request<a class="headerlink" href="#work-in-your-branch-and-submit-a-pull-request" title="Link to this heading">#</a></h3>
-<p>You should only work on the branch you just created. Implement the fix you envisionned
+<p>You should only work on the branch you just created. Implement the fix you envisioned
 to the issue you were assigned to.</p>
-<p>If, for personnal/professional reasons, lack of motivation, lack of time, or whatever
+<p>If, for personal/professional reasons, lack of motivation, lack of time, or whatever
 the reason for which you know that you won’t be able to complete your implementation, please
 let us know in the issue so that we can un-assign you and let someone else work on
 the issue.</p>
 <p>Once you think you have something that is ready for review or at least ready to be read
 by other people, you can
 <a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request">submit a pull request (PR)</a>
-on the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch of the QCHacker/tqec repository. In the PR message, try to
+on the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch of the tqec repository. In the PR message, try to
 provide as much information as possible to help other people understanding your code.</p>
 </section>
 <section id="merge-the-pr">
@@ -504,12 +531,12 @@ else to do it, you should send a clear comment asking for it.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="user_guide/detectors/detector_computation.html"
+       href="user_guide/detailed_plots.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">How to automatically find detectors?</p>
+        <p class="prev-next-title">Detailed plots with <code class="docutils literal notranslate"><span class="pre">tqec</span></code></p>
       </div>
     </a>
     <a class="right-next"
@@ -554,13 +581,13 @@ else to do it, you should send a clear comment asking for it.</p>
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="_sources/contributor_guide.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/contributor_guide.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -575,8 +602,8 @@ else to do it, you should send a clear comment asking for it.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -609,7 +636,8 @@ else to do it, you should send a clear comment asking for it.</p>
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

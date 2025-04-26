@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,20 +26,23 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
@@ -349,9 +352,14 @@ window.addEventListener("load", () => mermaid.run());
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -398,31 +406,36 @@ window.addEventListener("load", () => mermaid.run());
                 <article class="bd-article">
                   
   <h1>Source code for tqec.simulation.simulation</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">multiprocessing</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Sequence</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Sequence</span>
 
-<span class="kn">import</span> <span class="nn">sinter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sinter</span>
 
-<span class="kn">from</span> <span class="nn">tqec.compile.compile</span> <span class="kn">import</span> <span class="n">compile_block_graph</span>
-<span class="kn">from</span> <span class="nn">tqec.compile.specs.base</span> <span class="kn">import</span> <span class="n">BlockBuilder</span><span class="p">,</span> <span class="n">SubstitutionBuilder</span>
-<span class="kn">from</span> <span class="nn">tqec.compile.specs.library.css</span> <span class="kn">import</span> <span class="n">CSS_BLOCK_BUILDER</span><span class="p">,</span> <span class="n">CSS_SUBSTITUTION_BUILDER</span>
-<span class="kn">from</span> <span class="nn">tqec.computation.block_graph</span> <span class="kn">import</span> <span class="n">BlockGraph</span>
-<span class="kn">from</span> <span class="nn">tqec.computation.abstract_observable</span> <span class="kn">import</span> <span class="n">AbstractObservable</span>
-<span class="kn">from</span> <span class="nn">tqec.noise_model</span> <span class="kn">import</span> <span class="n">NoiseModel</span>
-<span class="kn">from</span> <span class="nn">tqec.simulation.generation</span> <span class="kn">import</span> <span class="n">generate_sinter_tasks</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.compile.compile</span><span class="w"> </span><span class="kn">import</span> <span class="n">compile_block_graph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.compile.convention</span><span class="w"> </span><span class="kn">import</span> <span class="n">FIXED_BULK_CONVENTION</span><span class="p">,</span> <span class="n">Convention</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.compile.detectors.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">DetectorDatabase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.computation.block_graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">BlockGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.computation.correlation</span><span class="w"> </span><span class="kn">import</span> <span class="n">CorrelationSurface</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.simulation.generation</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_sinter_tasks</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.simulation.split</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">heuristic_custom_error_key</span><span class="p">,</span>
+    <span class="n">split_stats_for_observables</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqec.utils.noise_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoiseModel</span>
 
 
 <div class="viewcode-block" id="start_simulation_using_sinter">
 <a class="viewcode-back" href="../../../_autosummary/tqec.simulation.start_simulation_using_sinter.html#tqec.simulation.start_simulation_using_sinter">[docs]</a>
-<span class="k">def</span> <span class="nf">start_simulation_using_sinter</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">start_simulation_using_sinter</span><span class="p">(</span>
     <span class="n">block_graph</span><span class="p">:</span> <span class="n">BlockGraph</span><span class="p">,</span>
     <span class="n">ks</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">ps</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">noise_model_factory</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="n">NoiseModel</span><span class="p">],</span>
     <span class="n">manhattan_radius</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">block_builder</span><span class="p">:</span> <span class="n">BlockBuilder</span> <span class="o">=</span> <span class="n">CSS_BLOCK_BUILDER</span><span class="p">,</span>
-    <span class="n">substitution_builder</span><span class="p">:</span> <span class="n">SubstitutionBuilder</span> <span class="o">=</span> <span class="n">CSS_SUBSTITUTION_BUILDER</span><span class="p">,</span>
-    <span class="n">observables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">AbstractObservable</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">convention</span><span class="p">:</span> <span class="n">Convention</span> <span class="o">=</span> <span class="n">FIXED_BULK_CONVENTION</span><span class="p">,</span>
+    <span class="n">observables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">CorrelationSurface</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">detector_database</span><span class="p">:</span> <span class="n">DetectorDatabase</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">(),</span>
     <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">sinter</span><span class="o">.</span><span class="n">Progress</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">max_shots</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -430,13 +443,16 @@ window.addEventListener("load", () => mermaid.run());
     <span class="n">decoders</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;pymatching&quot;</span><span class="p">,),</span>
     <span class="n">print_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">custom_decoders</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">sinter</span><span class="o">.</span><span class="n">Decoder</span> <span class="o">|</span> <span class="n">sinter</span><span class="o">.</span><span class="n">Sampler</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">sinter</span><span class="o">.</span><span class="n">TaskStats</span><span class="p">]]:</span>
+    <span class="n">save_resume_filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">existing_data_filepaths</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">split_observable_stats</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">sinter</span><span class="o">.</span><span class="n">TaskStats</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper to run `stim` simulations using `sinter`.</span>
 
 <span class="sd">    This function is the preferred entry-point to run `sinter` computations using</span>
 <span class="sd">    `stim` from circuits generated by `tqec`.</span>
 
-<span class="sd">    It remove the need to generate the `stim.Circuit` instances in parallel (due</span>
+<span class="sd">    It removes the need to generate the `stim.Circuit` instances in parallel (due</span>
 <span class="sd">    to the relative inefficiency of detector annotation at the moment) by</span>
 <span class="sd">    importing and calling :func:`generate_sinter_tasks`. It also forwards</span>
 <span class="sd">    several parameters to :func:`sinter.collect`, but without showing in its</span>
@@ -460,14 +476,12 @@ window.addEventListener("load", () => mermaid.run());
 <span class="sd">            Default to 2, which is sufficient for regular surface code. If</span>
 <span class="sd">            negative, detectors are not computed automatically and are not added</span>
 <span class="sd">            to the generated circuits.</span>
-<span class="sd">        block_builder: A callable that specifies how to build the `CompiledBlock` from</span>
-<span class="sd">            the specified `CubeSpecs`. Defaults to the block builder for the css type</span>
-<span class="sd">            surface code.</span>
-<span class="sd">        substitution_builder: A callable that specifies how to build the substitution</span>
-<span class="sd">            plaquettes from the specified `PipeSpec`. Defaults to the substitution</span>
-<span class="sd">            builder for the css type surface code.</span>
-<span class="sd">        observables: a list of observables to generate statistics for. If</span>
-<span class="sd">            `None`, all the observables of the provided computation are used.</span>
+<span class="sd">        convention: convention used to generate the quantum circuits.</span>
+<span class="sd">        observables: a list of correlation surfaces to compile to logical</span>
+<span class="sd">             observables and generate statistics for. If `None`, all the correlation</span>
+<span class="sd">             surfaces of the provided computation are used.</span>
+<span class="sd">        detector_database: an instance to retrieve from / store in detectors</span>
+<span class="sd">            that are computed as part of the circuit generation.</span>
 <span class="sd">        num_workers: The number of worker processes to use.</span>
 <span class="sd">        progress_callback: Defaults to None (unused). If specified, then each</span>
 <span class="sd">            time new sample statistics are acquired from a worker this method</span>
@@ -488,45 +502,61 @@ window.addEventListener("load", () => mermaid.run());
 <span class="sd">            used if requested by name by a task or by the decoders list.</span>
 <span class="sd">            If not specified, only decoders with support built into sinter, such</span>
 <span class="sd">            as &#39;pymatching&#39; and &#39;fusion_blossom&#39;, can be used.</span>
+<span class="sd">        save_resume_filepath: Defaults to None (unused). If set to a filepath,</span>
+<span class="sd">            results will be saved to that file while they are collected. If the</span>
+<span class="sd">            python interpreter is stopped or killed, calling this method again</span>
+<span class="sd">            with the same save_resume_filepath will load the previous results</span>
+<span class="sd">            from the file so it can resume where it left off. The stats in this</span>
+<span class="sd">            file will be counted in addition to each task&#39;s previous_stats field</span>
+<span class="sd">            (as opposed to overriding the field). Notes that the stats for each</span>
+<span class="sd">            individual observable are not split but saved in the `custom_counts`</span>
+<span class="sd">            field of the stats.</span>
+<span class="sd">        existing_data_filepaths: CSV data saved to these files will be loaded,</span>
+<span class="sd">            included in the returned results, and count towards things like</span>
+<span class="sd">            max_shots and max_errors.</span>
+<span class="sd">        split_observable_stats: Defaults to True. If True, the results are</span>
+<span class="sd">            post-processed to get individual statistics for each observable in</span>
+<span class="sd">            `observables`. If False, the results are returned as they are</span>
+<span class="sd">            collected.</span>
 
-<span class="sd">    Yields:</span>
-<span class="sd">        one simulation result (of type `list[sinter.TaskStats]`) per provided</span>
-<span class="sd">        observable in `observables`.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of lists of `sinter.TaskStats`. If `split_observable_stats` is</span>
+<span class="sd">        True, the outer list has one element per provided observable in `observables`.</span>
+<span class="sd">        If `split_observable_stats` is False, the outer list has only one element,</span>
+<span class="sd">        containing the raw statistics collected.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">observables</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">observables</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">block_graph</span><span class="o">.</span><span class="n">get_abstract_observables</span><span class="p">()</span>
+        <span class="n">observables</span> <span class="o">=</span> <span class="n">block_graph</span><span class="o">.</span><span class="n">find_correlation_surfaces</span><span class="p">()</span>
+    <span class="n">custom_error_count_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">split_observable_stats</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">observables</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">custom_error_count_key</span> <span class="o">=</span> <span class="n">heuristic_custom_error_key</span><span class="p">(</span><span class="n">observables</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">observable</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">observables</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">print_progress</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Generating statistics for observable </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">observables</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-                <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="n">compiled_graph</span> <span class="o">=</span> <span class="n">compile_block_graph</span><span class="p">(</span>
-            <span class="n">block_graph</span><span class="p">,</span>
-            <span class="n">block_builder</span><span class="p">,</span>
-            <span class="n">substitution_builder</span><span class="p">,</span>
-            <span class="n">observables</span><span class="o">=</span><span class="p">[</span><span class="n">observable</span><span class="p">],</span>
-        <span class="p">)</span>
-        <span class="n">stats</span> <span class="o">=</span> <span class="n">sinter</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span>
-            <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
-            <span class="n">tasks</span><span class="o">=</span><span class="n">generate_sinter_tasks</span><span class="p">(</span>
-                <span class="n">compiled_graph</span><span class="p">,</span>
-                <span class="n">ks</span><span class="p">,</span>
-                <span class="n">ps</span><span class="p">,</span>
-                <span class="n">noise_model_factory</span><span class="p">,</span>
-                <span class="n">manhattan_radius</span><span class="p">,</span>
-                <span class="n">max_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">progress_callback</span><span class="o">=</span><span class="n">progress_callback</span><span class="p">,</span>
-            <span class="n">max_shots</span><span class="o">=</span><span class="n">max_shots</span><span class="p">,</span>
-            <span class="n">max_errors</span><span class="o">=</span><span class="n">max_errors</span><span class="p">,</span>
-            <span class="n">decoders</span><span class="o">=</span><span class="n">decoders</span><span class="p">,</span>
-            <span class="n">print_progress</span><span class="o">=</span><span class="n">print_progress</span><span class="p">,</span>
-            <span class="n">custom_decoders</span><span class="o">=</span><span class="n">custom_decoders</span><span class="p">,</span>
-            <span class="n">hint_num_tasks</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">ks</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ps</span><span class="p">),</span>
-        <span class="p">)</span>
-        <span class="k">yield</span> <span class="n">stats</span></div>
+    <span class="n">compiled_graph</span> <span class="o">=</span> <span class="n">compile_block_graph</span><span class="p">(</span><span class="n">block_graph</span><span class="p">,</span> <span class="n">convention</span><span class="p">,</span> <span class="n">observables</span><span class="p">)</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">sinter</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span>
+        <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+        <span class="n">tasks</span><span class="o">=</span><span class="n">generate_sinter_tasks</span><span class="p">(</span>
+            <span class="n">compiled_graph</span><span class="p">,</span>
+            <span class="n">ks</span><span class="p">,</span>
+            <span class="n">ps</span><span class="p">,</span>
+            <span class="n">noise_model_factory</span><span class="p">,</span>
+            <span class="n">manhattan_radius</span><span class="p">,</span>
+            <span class="n">detector_database</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">existing_data_filepaths</span><span class="o">=</span><span class="n">existing_data_filepaths</span><span class="p">,</span>
+        <span class="n">save_resume_filepath</span><span class="o">=</span><span class="n">save_resume_filepath</span><span class="p">,</span>
+        <span class="n">progress_callback</span><span class="o">=</span><span class="n">progress_callback</span><span class="p">,</span>
+        <span class="n">max_shots</span><span class="o">=</span><span class="n">max_shots</span><span class="p">,</span>
+        <span class="n">max_errors</span><span class="o">=</span><span class="n">max_errors</span><span class="p">,</span>
+        <span class="n">decoders</span><span class="o">=</span><span class="n">decoders</span><span class="p">,</span>
+        <span class="n">print_progress</span><span class="o">=</span><span class="n">print_progress</span><span class="p">,</span>
+        <span class="n">custom_decoders</span><span class="o">=</span><span class="n">custom_decoders</span><span class="p">,</span>
+        <span class="n">hint_num_tasks</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">ks</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ps</span><span class="p">),</span>
+        <span class="n">count_observable_error_combos</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">custom_error_count_key</span><span class="o">=</span><span class="n">custom_error_count_key</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">split_observable_stats</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">split_stats_for_observables</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">observables</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">stats</span><span class="p">]</span></div>
 
 </pre></div>
 
@@ -557,8 +587,8 @@ window.addEventListener("load", () => mermaid.run());
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -591,7 +621,8 @@ window.addEventListener("load", () => mermaid.run());
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>
